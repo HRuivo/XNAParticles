@@ -61,15 +61,11 @@ public class Particles
 
     public void Add(Particle p)
     {
-        p.Velocity = new Vector3(
-            rnd.Next(1, 2) * 0.01f,
-            rnd.Next(1, 2) * 0.01f,
-            rnd.Next(1, 2) * 0.01f);
         this.particles.Add(p);
     }
-    public void Add(Vector3 pos)
+    public void Add(Vector3 pos, Vector3 vel)
     {
-        this.Add(new Particle(pos, Color.White));
+        this.Add(new Particle(pos, vel, Color.White));
     }
 
 
@@ -159,5 +155,22 @@ public class Particles
         }
 
         return force;
+    }
+
+
+    public void Reset()
+    {
+        foreach (Particle p in particles)
+            p.Reset();
+    }
+
+
+    public Vector3 GetRandomVelocity()
+    {
+        return
+            new Vector3(
+                rnd.Next(1, 2) * 0.01f,
+                rnd.Next(1, 2) * 0.01f,
+                rnd.Next(1, 2) * 0.01f);
     }
 }

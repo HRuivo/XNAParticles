@@ -73,7 +73,7 @@ namespace XNAParticles
                         else if (pCount > 200 && pCount <= 250)
                             color = Color.CornflowerBlue;
 
-                        particles.Add(new Particle(new Vector3(x * 0.5f, y * 0.5f, z * 0.5f), color));
+                        particles.Add(new Particle(new Vector3(x * 0.5f, y * 0.5f, z * 0.5f), particles.GetRandomVelocity(), color));
                         pCount++;
                     }
                 }
@@ -136,6 +136,9 @@ namespace XNAParticles
                     particles.Damping += 0.1f * dt;
                 else
                     particles.Damping -= 0.1f * dt;
+
+            if (keyState.IsKeyDown(Keys.R))
+                particles.Reset();
 
 
             cam.Update(dt);

@@ -1,20 +1,24 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 public class Particle
 {
     private VertexPositionColorTexture[] vertices;
     private short[] indices;
 
+    private Vector3 startPosition;
+    private Vector3 startVelocity;
 
     public Vector3 Position;
     public Vector3 OldPosition;
     public Vector3 Velocity;
 
-    public Particle(Vector3 position, Color color)
+    public Particle(Vector3 position, Vector3 velocity, Color color)
     {
-        this.Position = position;
+        this.Position = this.startPosition = position;
+        this.Velocity = this.startVelocity = velocity;
 
         this.vertices = new VertexPositionColorTexture[4];
         this.vertices[0] = new VertexPositionColorTexture(position, color, new Vector2(0, 0));
@@ -38,5 +42,11 @@ public class Particle
         effect.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColorTexture>(
             PrimitiveType.TriangleList, vertices, 0, vertices.Length,
             indices, 0, 2);
+    }
+
+    public void Reset()
+    {
+        this.Position = startPosition;
+        this.Velocity = startVelocity;
     }
 }
