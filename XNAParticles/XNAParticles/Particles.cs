@@ -40,6 +40,8 @@ public class Particles
         }
     }
 
+    public int ParticleCount { get { return this.particles.Count; } }
+
 
     public Particles(Effect fxParticles)
     {

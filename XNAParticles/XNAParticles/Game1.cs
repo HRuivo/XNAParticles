@@ -57,20 +57,20 @@ namespace XNAParticles
             int pCount = 0;
             // Particles
             particles = new Particles(fxParticles);
-            for (int x = 0; x < 10; x++)
+            Color color = Color.White;
+            for (int x = 0; x < 5; x++)
             {
-                for (int z = 0; z < 10; z++)
+                for (int z = 0; z < 5; z++)
                 {
-                    for (int y = 0; y < 3; y++)
+                    for (int y = 0; y < 10; y++)
                     {
-                        Color color = Color.Red;
-                        if (pCount > 50 && pCount <= 100)
-                            color = Color.Orange;
-                        else if (pCount > 100 && pCount <= 150)
+                        if (pCount >= 50 && pCount < 100)
+                            color = Color.Red;
+                        else if (pCount >= 100 && pCount < 150)
                             color = Color.Yellow;
-                        else if (pCount > 150 && pCount <= 200)
+                        else if (pCount >= 150 && pCount < 200)
                             color = Color.Green;
-                        else if (pCount > 200 && pCount <= 250)
+                        else if(pCount >= 200 && pCount < 250)
                             color = Color.CornflowerBlue;
 
                         particles.Add(new Particle(new Vector3(x * 0.5f, y * 0.5f, z * 0.5f), particles.GetRandomVelocity(), color));
@@ -78,6 +78,8 @@ namespace XNAParticles
                     }
                 }
             }
+
+            color = Color.Red;
         }
 
         protected override void UnloadContent()
@@ -89,24 +91,25 @@ namespace XNAParticles
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            KeyboardState keyState = Keyboard.GetState();
+
             // Allows the game to exit
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (keyState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (keyState.IsKeyDown(Keys.Left))
                 cam.Yaw -= 1 * dt;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            else if (keyState.IsKeyDown(Keys.Right))
                 cam.Yaw += 1 * dt;
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (keyState.IsKeyDown(Keys.Up))
                 cam.Pitch -= 1 * dt;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            else if (keyState.IsKeyDown(Keys.Down))
                 cam.Pitch += 1 * dt;
-            if (Keyboard.GetState().IsKeyDown(Keys.Z))
+            if (keyState.IsKeyDown(Keys.Z))
                 cam.Offset += Vector3.Forward * 5 * dt;
-            else if (Keyboard.GetState().IsKeyDown(Keys.X))
+            else if (keyState.IsKeyDown(Keys.X))
                 cam.Offset += Vector3.Backward * 5 * dt;
 
-            KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.G))
                 if (keyState.IsKeyDown(Keys.LeftShift) || keyState.IsKeyDown(Keys.RightShift))
                     particles.Gravity += Vector3.Down * 0.1f;
@@ -153,32 +156,27 @@ namespace XNAParticles
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
+            // fix up for enabling correct 3d object rendering
             GraphicsDevice.BlendState = BlendState.Opaque;
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             GraphicsDevice.SamplerStates[0] = SamplerState.AnisotropicWrap;
 
-            #region Box
 
             box.Draw(cam);
 
-            #endregion
-
-            #region Particles
-
             particles.Draw(cam.Projection, cam.View, cam.SideVector, cam.UpVector);
 
-            #endregion
 
-            #region GUI
-
+            // Print debug information and custom params
             string text =
                 "CONTROLS\n" +
                 "ARROWS = Control camera rotation\n" +
                 "Z/X = Zoom in and out\n\n" +
                 "PARAMS" +
-                "\nPARTICLE Radius  = " + particles.ParticleRadius +
+                "\nPARTICLE COUNT   = " + particles.ParticleCount +
+                "\nPARTICLE RADIUS  = " + particles.ParticleRadius +
                 "\ng/G - GRAVITY    = " + particles.Gravity +
                 "\nd/D - DAMPING    = " + particles.Damping +
                 "\np/P - SPRING     = " + particles.Spring +
@@ -189,8 +187,6 @@ namespace XNAParticles
             spriteBatch.DrawString(font, text, Vector2.One * 15, Color.White);
             spriteBatch.DrawString(font, "FPS: " + fpsCounter.FPS, new Vector2(GraphicsDevice.Viewport.Width * 0.90f, 15), Color.White);
             spriteBatch.End();
-
-            #endregion
 
             base.Draw(gameTime);
         }
