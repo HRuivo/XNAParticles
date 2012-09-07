@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 public class Particles
@@ -13,7 +13,7 @@ public class Particles
 
 
     private float attraction = 0.0f;
-    private float particleRadius = 0.25f;
+    private float particleRadius = 0.4f;
 
     public float Damping { get; set; }
     public float Spring { get; set; }

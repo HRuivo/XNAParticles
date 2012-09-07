@@ -57,6 +57,7 @@ namespace XNAParticles
             int pCount = 0;
             // Particles
             particles = new Particles(fxParticles);
+            float pOffset = particles.ParticleRadius * 2;
             Color color = Color.White;
             for (int x = 0; x < 5; x++)
             {
@@ -73,7 +74,7 @@ namespace XNAParticles
                         else if(pCount >= 200 && pCount < 250)
                             color = Color.CornflowerBlue;
 
-                        particles.Add(new Particle(new Vector3(x * 0.5f, y * 0.5f, z * 0.5f), particles.GetRandomVelocity(), color));
+                        particles.Add(new Particle(new Vector3(x, y, z) * pOffset, particles.GetRandomVelocity(), color));
                         pCount++;
                     }
                 }
