@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNAParticles", "XNAParticles\XNAParticles\XNAParticles.csproj", "{A8349E63-97B4-45BD-B75A-D418364F03C0}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "XNAParticlesContent", "XNAParticles\XNAParticlesContent\XNAParticlesContent.contentproj", "{27AA079A-4D97-4F63-9761-D597AFA0A268}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8349E63-97B4-45BD-B75A-D418364F03C0}.Debug|x86.ActiveCfg = Debug|x86
+		{A8349E63-97B4-45BD-B75A-D418364F03C0}.Debug|x86.Build.0 = Debug|x86
+		{A8349E63-97B4-45BD-B75A-D418364F03C0}.Release|x86.ActiveCfg = Release|x86
+		{A8349E63-97B4-45BD-B75A-D418364F03C0}.Release|x86.Build.0 = Release|x86
+		{27AA079A-4D97-4F63-9761-D597AFA0A268}.Debug|x86.ActiveCfg = Debug|x86
+		{27AA079A-4D97-4F63-9761-D597AFA0A268}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
